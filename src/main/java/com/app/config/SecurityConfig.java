@@ -30,6 +30,28 @@ import java.util.List;
 public class SecurityConfig {
 
 
+//    @Bean
+//    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
+//        // El httpSecurity es el filtro que pasa por todo el flujo de peticiones
+//        return httpSecurity
+//                .csrf(csrf -> csrf.disable())
+//                .httpBasic(Customizer.withDefaults())
+//                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//                .authorizeHttpRequests( http -> {
+//                    // configurar los end points publico
+//                    http.requestMatchers(HttpMethod.GET,"/auth/hello").permitAll();
+//                    // Configurar los end poitns privados
+//                    http.requestMatchers(HttpMethod.GET,"/auth/hello-secured").hasAuthority("CREATE");
+//                    // Configuar el resto de endpoints - No Especificados
+//                    //Recomendabble es el http.anyRequest().denyAll();
+//                    http.anyRequest().denyAll(); // Rechaza todo lo que no esta especificado
+//                 //   http.anyRequest().authenticated(); //Cualquier otra request debe estar autenticado
+//                })
+//                .build();
+//    }
+
+
+    //Trabajar con notaciones
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
         // El httpSecurity es el filtro que pasa por todo el flujo de peticiones
@@ -37,17 +59,9 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .httpBasic(Customizer.withDefaults())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests( http -> {
-                    // configurar los end points publico
-                    http.requestMatchers(HttpMethod.GET,"/auth/hello").permitAll();
-                    // Configurar los end poitns privados
-                    http.requestMatchers(HttpMethod.GET,"/auth/hello-secured").hasAuthority("CREATE");
-                    // Configuar el resto de endpoints - No Especificados
-              //      http.anyRequest().denyAll();
-                    http.anyRequest().authenticated();
-                })
                 .build();
     }
+
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
